@@ -1,0 +1,25 @@
+{
+  "name": "front-end-fisheye-p6-formation-2",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Teddys09/Front-End-Fisheye-P6-Formation-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Teddys09/Front-End-Fisheye-P6-Formation-2/issues"
+  },
+  "homepage": "https://github.com/Teddys09/Front-End-Fisheye-P6-Formation-2#readme",
+  "devDependencies": {
+    "eslint": "^8.20.0"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
