@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
-console.log(id);
+
 // Get photographers data
 const photographers = [];
 const photographerMedia = [];
@@ -53,8 +53,6 @@ export async function getPhotographerMedia() {
     for (let i = 0; i < photographerMedia.length; i++) {
       photographerMediaContent.push(photographerMedia[i]);
     }
-    console.log(photographerMediaContent);
-    console.log(photographerMedia);
 
     return { photographerMedia };
   }

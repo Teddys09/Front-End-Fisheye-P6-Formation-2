@@ -3,10 +3,15 @@ import {
   getPhotographerMedia,
 } from '../utils/getPhotographers.js';
 import {
+  handleClickImg,
+  handleClickSort,
+  incrementLike,
   makeMediaDiv,
+  makeNumberOfLikes,
   makePhotograferContact,
   makePhotograferHeader,
   makePhotograferMedia,
+  makePhotograpgerPrice,
 } from '../factories/makePhotograferPage.js';
 // Call function to get photographer data by id and call function to makeHeader
 async function init() {
@@ -15,9 +20,16 @@ async function init() {
 
   makePhotograferContact(photographer);
   makePhotograferHeader(photographer);
+  makeNumberOfLikes(photographerMedia);
+  makePhotograpgerPrice(photographer);
   makePhotograferMedia(photographerMedia);
+  handleClickSort(photographerMedia);
   photographerMedia.forEach((media) => {
     makeMediaDiv(media);
+  });
+  handleClickImg(photographerMedia);
+  photographerMedia.forEach((media) => {
+    incrementLike(media);
   });
 }
 

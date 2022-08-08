@@ -2,5 +2,4 @@
 
 ## Démarrer le projet
 
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
-
+Run npm i then start `index.html`.

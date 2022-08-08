@@ -20,11 +20,15 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
+#contact_modal {
+  position: fixed;
+  top: 114px;
+  right: 380px;
+}
 .modal {
   border-radius: 5px;
   background-color: #db8876;
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,7 +98,7 @@ form input {
   position: absolute;
 }
 .choice {
-  position: relative;
+  position: absolute;
   background-color: #901c1c;
   color: white;
   width: 170px;
@@ -103,10 +107,12 @@ form input {
   margin: 0px;
   margin-left: 20px;
   padding: 0px;
+  left: 151px;
 }
 
 .sort-by {
   display: flex;
+  margin-bottom: 30px;
 }
 .sort-by p {
   margin: 0px;
@@ -171,4 +177,18 @@ form input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.likes-and-price {
+  background: #db8876;
+  width: 300px;
+  height: 40px;
+  position: fixed;
+  bottom: 0;
+  right: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #000000;
+  font-weight: bold;
 }

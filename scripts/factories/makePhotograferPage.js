@@ -1,7 +1,7 @@
 import { closeModal, displayModal } from '../utils/contactForm.js';
 
 export function makePhotograferHeader(data) {
-  const { name, portrait, city, country, tagline } = data;
+  const { name, portrait, city, country, tagline, price } = data;
 
   const header = document.querySelector('.photograph-header');
   const div = document.createElement('div');
@@ -9,25 +9,32 @@ export function makePhotograferHeader(data) {
   header.appendChild(div);
   const headerTitle = document.createElement('h1');
   headerTitle.textContent = name;
+  headerTitle.setAttribute('tabindex', '2');
   div.append(headerTitle);
   const cityCountry = document.createElement('h2');
   cityCountry.textContent = `${city}, ${country}`;
+  cityCountry.setAttribute('tabindex', '3');
   div.append(cityCountry);
   const p = document.createElement('p');
   p.textContent = tagline;
+  p.setAttribute('tabindex', '3');
   div.append(p);
   //
   const buttonContact = document.createElement('button');
   buttonContact.textContent = 'Contactez-moi';
   buttonContact.classList.add('contact_button');
+  buttonContact.setAttribute('tabindex', '4');
   header.appendChild(buttonContact);
   buttonContact.addEventListener('click', () => displayModal());
   //
   const img = document.createElement('img');
   img.setAttribute('src', `assets/photographers/${portrait}`);
   img.setAttribute('alt', 'Photo de ' + name);
+  img.setAttribute('tabindex', '5');
   header.appendChild(img);
   //
+
+  console.log(price);
 }
 
 export function makePhotograferContact(data) {
@@ -85,7 +92,6 @@ export function makePhotograferContact(data) {
 }
 
 export function makePhotograferMedia(data) {
-  const { id, date, title, image, likes, price, video } = data;
   const main = document.querySelector('#main');
   const mediaContainer = document.createElement('div');
   mediaContainer.classList.add('media-container');
@@ -103,9 +109,11 @@ function makeSortBy(data) {
   mediaContainer.appendChild(divSortBy);
   const p1 = document.createElement('p');
   p1.textContent = 'Trier par  ';
+  p1.setAttribute('tabindex', '7');
   divSortBy.appendChild(p1);
   const ul = document.createElement('ul');
   ul.classList.add('choice');
+  ul.setAttribute('tabindex', '8');
   divSortBy.appendChild(ul);
   const liPopular = document.createElement('li');
   liPopular.textContent = 'Popularité';
@@ -142,6 +150,7 @@ function makeSortBy(data) {
 
 function handleClickDropDown() {
   const dropdown = document.querySelector('.icon-dropdown');
+
   // select all border
   const border = document.querySelectorAll('.border');
   let isClicked = false;
@@ -151,7 +160,7 @@ function handleClickDropDown() {
     isClicked = !isClicked;
     if (isClicked) {
       date.style.display = 'block';
-      // add style to border for all
+
       border.forEach((border) => {
         border.style.display = 'block';
       });
@@ -159,6 +168,7 @@ function handleClickDropDown() {
       title.style.display = 'block';
     } else {
       date.style.display = 'none';
+
       border.forEach((border) => {
         border.style.display = 'none';
       });
@@ -181,6 +191,8 @@ export function makeMediaDiv(data) {
   mediaCard.appendChild(divMediaImg);
   if (image) {
     divMediaImg.style.backgroundImage = `url(assets/media/${image})`;
+    divMediaImg.setAttribute('tabindex', '9');
+    divMediaImg.setAttribute('aria-label', `photo ${title}`);
   }
   if (video) {
     const videoDisplay = document.createElement('video');
@@ -200,7 +212,7 @@ export function makeMediaDiv(data) {
   h2Title.textContent = title;
   divMediaInfo.appendChild(h2Title);
   const divLikes = document.createElement('div');
-  divLikes.classList.add('likes');
+  divLikes.classList.add('likes', `b${id}`);
   divMediaInfo.appendChild(divLikes);
   const pLikes = document.createElement('p');
   pLikes.textContent = likes;
@@ -209,4 +221,139 @@ export function makeMediaDiv(data) {
   likeIcon.setAttribute('src', 'assets/icons/like.svg');
   likeIcon.setAttribute('alt', 'Heart icons');
   divLikes.appendChild(likeIcon);
+}
+
+export function makeNumberOfLikes(data) {
+  // reduce is an accumulator in this case he take number of likes of each element and increment them
+  const totalLikes = data.reduce((prev, curr) => {
+    return prev + curr.likes;
+  }, 0);
+  const body = document.querySelector('body');
+  const divLikesAndPrice = document.createElement('div');
+  divLikesAndPrice.classList.add('likes-and-price');
+  divLikesAndPrice.setAttribute('tabindex', '6');
+  body.appendChild(divLikesAndPrice);
+  const likesDiv = document.createElement('div');
+
+  divLikesAndPrice.appendChild(likesDiv);
+  const pLikes = document.createElement('p');
+  pLikes.textContent = `${totalLikes} `;
+  likesDiv.appendChild(pLikes);
+  const likeIcon = document.createElement('img');
+  likeIcon.setAttribute('src', 'assets/icons/likeBlack.svg');
+  likeIcon.setAttribute('alt', 'Heart icons');
+
+  likesDiv.appendChild(likeIcon);
+}
+
+export function makePhotograpgerPrice(data) {
+  const { price } = data;
+
+  const divLikesAndPrice = document.querySelector('.likes-and-price');
+  const priceDiv = document.createElement('div');
+  priceDiv.classList.add('price-bottom');
+  divLikesAndPrice.appendChild(priceDiv);
+
+  const pPrice = document.createElement('p');
+  pPrice.textContent = `${price} € /jour`;
+  priceDiv.appendChild(pPrice);
+}
+
+export function handleClickImg(data) {
+  const { id, image } = data;
+  const mediaImg = document.querySelector('.media-img');
+
+  mediaImg.addEventListener('input', () => {
+    console.log('hi');
+  });
+}
+
+export function handleClickSort(data) {
+  sortMediaByDate(data);
+  sortByPopularity(data);
+  sortByTitle(data);
+}
+function sortMediaByDate(data) {
+  const dateDiv = document.querySelector('.date');
+  console.log(data);
+  // event listener on dateDiv to sort all elements by date
+  dateDiv.addEventListener('click', () => {
+    const media = document.querySelectorAll('.media-card');
+    media.forEach((media) => {
+      media.remove();
+    });
+    data.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+    data.forEach((data) => {
+      makeMediaDiv(data);
+    });
+  });
+
+  console.log(data);
+}
+function sortByPopularity(data) {
+  const popularityDiv = document.querySelector('.popular');
+  popularityDiv.addEventListener('click', () => {
+    const media = document.querySelectorAll('.media-card');
+    media.forEach((media) => {
+      media.remove();
+    });
+    data.sort((a, b) => {
+      return b.likes - a.likes;
+    });
+    data.forEach((data) => {
+      makeMediaDiv(data);
+    });
+  });
+}
+
+function sortByTitle(data) {
+  const titleDiv = document.querySelector('.title');
+  titleDiv.addEventListener('click', () => {
+    const media = document.querySelectorAll('.media-card');
+    media.forEach((media) => {
+      media.remove();
+    });
+    data.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
+    data.forEach((data) => {
+      makeMediaDiv(data);
+    });
+  });
+}
+
+export function incrementLike(data) {
+  const media = document.querySelectorAll('.media-card .media-info');
+  let asClicked = false;
+
+  const { likes, id } = data;
+  const likeIcon = document.querySelector(`.likes.b${id} img`);
+
+  likeIcon.addEventListener('click', () => {
+    if (asClicked === false) {
+      console.log(likes);
+
+      const newLikes = Number(likes) + 1;
+      media.likes = newLikes;
+      const pLikes = document.querySelector(`.likes.b${id} p`);
+      pLikes.textContent = newLikes;
+      // increment likeDiv +1
+      const likeDiv = document.querySelector(`.likes-and-price div p`);
+      const newLikeDiv = Number(likeDiv.textContent) + 1;
+
+      likeDiv.textContent = newLikeDiv;
+      asClicked = true;
+    } else {
+      media.likes = likes;
+      const pLikes = document.querySelector(`.likes.b${id} p`);
+      pLikes.textContent = likes;
+      // increment likeDiv -1
+      const likeDiv = document.querySelector(`.likes-and-price div p`);
+
+      likeDiv.textContent = Number(likeDiv.textContent) - 1;
+      asClicked = false;
+    }
+  });
 }
