@@ -1,4 +1,5 @@
 import { closeModal, displayModal } from '../utils/contactForm.js';
+import { handleClickLightbox } from '../utils/lightbox.js';
 
 export function makePhotograferHeader(data) {
   const { name, portrait, city, country, tagline, price } = data;
@@ -187,7 +188,8 @@ export function makeMediaDiv(data) {
   mediaCard.classList.add('media-card');
   divMedia.appendChild(mediaCard);
   const divMediaImg = document.createElement('div');
-  divMediaImg.classList.add('media-img');
+  divMediaImg.classList.add('media-img', 'b' + id);
+
   mediaCard.appendChild(divMediaImg);
   if (image) {
     divMediaImg.style.backgroundImage = `url(assets/media/${image})`;
@@ -199,6 +201,7 @@ export function makeMediaDiv(data) {
     console.log(video);
     videoDisplay.setAttribute('src', `assets/media/${video}`);
     videoDisplay.setAttribute('controls', 'controls');
+    videoDisplay.setAttribute('tabindex', '9');
     divMediaImg.appendChild(videoDisplay);
   } else if (image === 'undefined' || video === 'undefined') {
     const noContent = document.createElement('p');
@@ -259,15 +262,6 @@ export function makePhotograpgerPrice(data) {
   priceDiv.appendChild(pPrice);
 }
 
-export function handleClickImg(data) {
-  const { id, image } = data;
-  const mediaImg = document.querySelector('.media-img');
-
-  mediaImg.addEventListener('input', () => {
-    console.log('hi');
-  });
-}
-
 export function handleClickSort(data) {
   sortMediaByDate(data);
   sortByPopularity(data);
@@ -275,7 +269,7 @@ export function handleClickSort(data) {
 }
 function sortMediaByDate(data) {
   const dateDiv = document.querySelector('.date');
-  console.log(data);
+
   // event listener on dateDiv to sort all elements by date
   dateDiv.addEventListener('click', () => {
     const media = document.querySelectorAll('.media-card');
@@ -288,9 +282,8 @@ function sortMediaByDate(data) {
     data.forEach((data) => {
       makeMediaDiv(data);
     });
+    handleClickLightbox(data);
   });
-
-  console.log(data);
 }
 function sortByPopularity(data) {
   const popularityDiv = document.querySelector('.popular');
@@ -305,6 +298,7 @@ function sortByPopularity(data) {
     data.forEach((data) => {
       makeMediaDiv(data);
     });
+    handleClickLightbox(data);
   });
 }
 
@@ -321,6 +315,7 @@ function sortByTitle(data) {
     data.forEach((data) => {
       makeMediaDiv(data);
     });
+    handleClickLightbox(data);
   });
 }
 

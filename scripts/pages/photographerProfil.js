@@ -3,7 +3,6 @@ import {
   getPhotographerMedia,
 } from '../utils/getPhotographers.js';
 import {
-  handleClickImg,
   handleClickSort,
   incrementLike,
   makeMediaDiv,
@@ -13,6 +12,7 @@ import {
   makePhotograferMedia,
   makePhotograpgerPrice,
 } from '../factories/makePhotograferPage.js';
+import { handleClickLightbox } from '../utils/lightbox.js';
 // Call function to get photographer data by id and call function to makeHeader
 async function init() {
   const { photographer } = await getPhotographerById();
@@ -27,7 +27,9 @@ async function init() {
   photographerMedia.forEach((media) => {
     makeMediaDiv(media);
   });
-  handleClickImg(photographerMedia);
+
+  handleClickLightbox(photographerMedia);
+
   photographerMedia.forEach((media) => {
     incrementLike(media);
   });
