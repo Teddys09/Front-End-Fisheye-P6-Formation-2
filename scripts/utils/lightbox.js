@@ -44,19 +44,27 @@ function makeLightbox(data) {
   }
   console.log(data);
   const lightBoxContainer = document.querySelector('.lightbox-container');
-
-  const { id, image, title } = data;
+  console.log(data);
+  const { id, image, title, video } = data;
   const lightbox = document.createElement('div');
   lightbox.classList.add('lightbox', `b${id}`);
   lightbox.setAttribute('tabindex', '2');
   lightbox.setAttribute('aria-hidden', 'true');
   lightBoxContainer.appendChild(lightbox);
-
-  const lightboxImg = document.createElement('img');
-  lightboxImg.setAttribute('src', `assets/media/${image}`);
-  lightboxImg.setAttribute('alt', `${title}`);
-  lightboxImg.classList.add('lightbox-img');
-  lightbox.appendChild(lightboxImg);
+  if (image) {
+    const lightboxImg = document.createElement('img');
+    lightboxImg.setAttribute('src', `assets/media/${image}`);
+    lightboxImg.setAttribute('alt', `${title}`);
+    lightboxImg.classList.add('lightbox-img');
+    lightbox.appendChild(lightboxImg);
+  }
+  if (video) {
+    const lightboxVideo = document.createElement('video');
+    lightboxVideo.setAttribute('src', `assets/media/${video}`);
+    lightboxVideo.setAttribute('alt', `${title}`);
+    lightboxVideo.classList.add('lightbox-video');
+    lightbox.appendChild(lightboxVideo);
+  }
 }
 function handleCloseLightbox() {
   const lightbox = document.querySelector('.lightbox-container');

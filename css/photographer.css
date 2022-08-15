@@ -197,6 +197,16 @@ form input {
   color: #000000;
   font-weight: bold;
 }
+.total-likes {
+  display: flex;
+  align-items: center;
+}
+.total-likes p {
+  margin-right: 5px;
+}
+.total-likes img {
+  width: 18px;
+}
 
 .lightbox {
   position: fixed;
@@ -217,7 +227,14 @@ form input {
   background-size: cover;
   border-radius: 5px;
   object-fit: cover;
-  object-position: center top;
+}
+.lightbox video {
+  width: 80%;
+  height: 90%;
+  background-position: center center;
+  background-size: cover;
+  border-radius: 5px;
+  object-fit: cover;
 }
 .close-icon {
   position: absolute;

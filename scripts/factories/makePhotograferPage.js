@@ -237,10 +237,12 @@ export function makeNumberOfLikes(data) {
   divLikesAndPrice.setAttribute('tabindex', '6');
   body.appendChild(divLikesAndPrice);
   const likesDiv = document.createElement('div');
+  likesDiv.classList.add('total-likes');
 
   divLikesAndPrice.appendChild(likesDiv);
   const pLikes = document.createElement('p');
   pLikes.textContent = `${totalLikes} `;
+
   likesDiv.appendChild(pLikes);
   const likeIcon = document.createElement('img');
   likeIcon.setAttribute('src', 'assets/icons/likeBlack.svg');
