@@ -105,6 +105,7 @@ function handleChevron(data, actualData) {
 
     console.log(nextData);
     makeLightbox(data[nextData]);
+    lightBoxContainer.focus();
   });
   chevronRight.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
@@ -121,6 +122,7 @@ function handleChevron(data, actualData) {
 
       console.log(nextData);
       makeLightbox(data[nextData]);
+      lightBoxContainer.focus();
     }
   });
 
@@ -138,6 +140,25 @@ function handleChevron(data, actualData) {
 
     console.log(nextData);
     makeLightbox(data[nextData]);
+    lightBoxContainer.focus();
+  });
+  chevronLeft.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      let indexs = data.indexOf(actualData);
+      if (indexs === 0) {
+        actualData = data[data.length - 1];
+      } else {
+        actualData = data[indexs - 1];
+      }
+
+      console.log(actualData);
+      // find in data === actualData and log it
+      const nextData = data.findIndex((item) => item.id === actualData.id);
+
+      console.log(nextData);
+      makeLightbox(data[nextData]);
+      lightBoxContainer.focus();
+    }
   });
 }
 

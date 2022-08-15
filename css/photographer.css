@@ -83,6 +83,7 @@ form input {
   height: 200px;
   width: 200px;
   border-radius: 50%;
+  object-fit: cover;
 }
 .photograph-header {
   display: flex;
@@ -166,8 +167,7 @@ form input {
 .media-container {
   margin: 0 100px;
 }
-.media-card {
-}
+
 .likes img {
   width: 18px;
 }

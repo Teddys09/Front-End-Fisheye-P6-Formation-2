@@ -10,7 +10,10 @@ export function photographerFactory(data) {
     const link = document.createElement('a');
     link.setAttribute('href', `./photographer.html?id=${id}`);
     //add arial-label to the link
-    link.setAttribute('aria-label', `Voir la page de ${name}`);
+    link.setAttribute(
+      'aria-label',
+      `${name} est un photographe de ${city}, ${country} sont prix est de ${price} € par jour appuyer sur entrée pour visiter la page du photographe`
+    );
 
     article.appendChild(link);
 
@@ -22,7 +25,7 @@ export function photographerFactory(data) {
     h2.textContent = name;
 
     link.appendChild(h2);
-    const p0 = document.createElement('p0');
+    const p0 = document.createElement('p');
     p0.textContent = `${city}, ${country}`;
     //add class to p0
     p0.classList.add('city-country');

@@ -119,6 +119,7 @@ function makeSortBy(data) {
   const liPopular = document.createElement('li');
   liPopular.textContent = 'Popularité';
   liPopular.classList.add('popular');
+  liPopular.setAttribute('tabindex', '9 ');
   ul.appendChild(liPopular);
   // create div border
   const divBorder = document.createElement('div');
@@ -127,6 +128,7 @@ function makeSortBy(data) {
   const liDate = document.createElement('li');
   liDate.textContent = 'Date';
   liDate.classList.add('date');
+  liDate.setAttribute('tabindex', '9');
   ul.appendChild(liDate);
   const divBorder2 = document.createElement('div');
   divBorder2.classList.add('border');
@@ -134,14 +136,19 @@ function makeSortBy(data) {
   const liTitle = document.createElement('li');
   liTitle.textContent = 'Titre';
   liTitle.classList.add('title');
+  liTitle.setAttribute('tabindex', '9');
   ul.appendChild(liTitle);
   // add icon to ul
   const divIcon = document.createElement('div');
   divIcon.classList.add('icon-dropdown');
+  divIcon.setAttribute('tabindex', '8');
   ul.appendChild(divIcon);
   const iconDropDown = document.createElement('img');
   iconDropDown.setAttribute('src', 'assets/icons/angle-down-solid.svg');
-  iconDropDown.setAttribute('alt', 'Flèche vers le bas');
+  iconDropDown.setAttribute(
+    'alt',
+    'Flèche vers le bas appuyer sur entrée pour afficher les choix'
+  );
   divIcon.appendChild(iconDropDown);
   const divMedia = document.createElement('div');
   divMedia.classList.add('media');
@@ -174,6 +181,27 @@ function handleClickDropDown() {
         border.style.display = 'none';
       });
       title.style.display = 'none';
+    }
+  });
+  dropdown.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      isClicked = !isClicked;
+      if (isClicked) {
+        date.style.display = 'block';
+
+        border.forEach((border) => {
+          border.style.display = 'block';
+        });
+
+        title.style.display = 'block';
+      } else {
+        date.style.display = 'none';
+
+        border.forEach((border) => {
+          border.style.display = 'none';
+        });
+        title.style.display = 'none';
+      }
     }
   });
 }
@@ -210,19 +238,25 @@ export function makeMediaDiv(data) {
   }
   const divMediaInfo = document.createElement('div');
   divMediaInfo.classList.add('media-info');
+
   mediaCard.appendChild(divMediaInfo);
   const h2Title = document.createElement('h2');
   h2Title.textContent = title;
+  h2Title.setAttribute('tabindex', '9');
   divMediaInfo.appendChild(h2Title);
   const divLikes = document.createElement('div');
   divLikes.classList.add('likes', `b${id}`);
   divMediaInfo.appendChild(divLikes);
   const pLikes = document.createElement('p');
   pLikes.textContent = likes;
+  pLikes.setAttribute('tabindex', '9');
+  pLikes.setAttribute('aria-label', `${likes} likes`);
   divLikes.appendChild(pLikes);
   const likeIcon = document.createElement('img');
   likeIcon.setAttribute('src', 'assets/icons/like.svg');
-  likeIcon.setAttribute('alt', 'Heart icons');
+  likeIcon.setAttribute('alt', 'Like');
+  likeIcon.setAttribute('tabindex', '9');
+  likeIcon.setAttribute('aria-label', 'Appuyer sur entrée pour aimer');
   divLikes.appendChild(likeIcon);
 }
 
@@ -286,6 +320,21 @@ function sortMediaByDate(data) {
     });
     handleClickLightbox(data);
   });
+  dateDiv.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const media = document.querySelectorAll('.media-card');
+      media.forEach((media) => {
+        media.remove();
+      });
+      data.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+      });
+      data.forEach((data) => {
+        makeMediaDiv(data);
+      });
+      handleClickLightbox(data);
+    }
+  });
 }
 function sortByPopularity(data) {
   const popularityDiv = document.querySelector('.popular');
@@ -301,6 +350,21 @@ function sortByPopularity(data) {
       makeMediaDiv(data);
     });
     handleClickLightbox(data);
+  });
+  popularityDiv.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const media = document.querySelectorAll('.media-card');
+      media.forEach((media) => {
+        media.remove();
+      });
+      data.sort((a, b) => {
+        return b.likes - a.likes;
+      });
+      data.forEach((data) => {
+        makeMediaDiv(data);
+      });
+      handleClickLightbox(data);
+    }
   });
 }
 
@@ -318,6 +382,21 @@ function sortByTitle(data) {
       makeMediaDiv(data);
     });
     handleClickLightbox(data);
+  });
+  titleDiv.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const media = document.querySelectorAll('.media-card');
+      media.forEach((media) => {
+        media.remove();
+      });
+      data.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+      data.forEach((data) => {
+        makeMediaDiv(data);
+      });
+      handleClickLightbox(data);
+    }
   });
 }
 
@@ -351,6 +430,33 @@ export function incrementLike(data) {
 
       likeDiv.textContent = Number(likeDiv.textContent) - 1;
       asClicked = false;
+    }
+  });
+  likeIcon.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      if (asClicked === false) {
+        console.log(likes);
+
+        const newLikes = Number(likes) + 1;
+        media.likes = newLikes;
+        const pLikes = document.querySelector(`.likes.b${id} p`);
+        pLikes.textContent = newLikes;
+        // increment likeDiv +1
+        const likeDiv = document.querySelector(`.likes-and-price div p`);
+        const newLikeDiv = Number(likeDiv.textContent) + 1;
+
+        likeDiv.textContent = newLikeDiv;
+        asClicked = true;
+      } else {
+        media.likes = likes;
+        const pLikes = document.querySelector(`.likes.b${id} p`);
+        pLikes.textContent = likes;
+        // increment likeDiv -1
+        const likeDiv = document.querySelector(`.likes-and-price div p`);
+
+        likeDiv.textContent = Number(likeDiv.textContent) - 1;
+        asClicked = false;
+      }
     }
   });
 }
