@@ -65,19 +65,24 @@ function makeLightbox(data) {
     lightboxVideo.classList.add('lightbox-video');
     lightbox.appendChild(lightboxVideo);
   }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      lightBoxContainer.remove();
+    }
+  });
 }
 function handleCloseLightbox() {
-  const lightbox = document.querySelector('.lightbox-container');
-  console.log(lightbox);
+  const lightBoxContainer = document.querySelector('.lightbox-container');
+  const lightBox = document.querySelector('.lightbox');
   const closeIcon = document.querySelector('.close-icon');
-  console.log(closeIcon);
 
   closeIcon.addEventListener('click', () => {
-    lightbox.remove();
+    lightBoxContainer.remove();
   });
   closeIcon.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      lightbox.remove();
+      lightBoxContainer.remove();
     }
   });
 }
