@@ -1,4 +1,4 @@
-import { closeModal, displayModal } from '../utils/contactForm.js';
+import { closeModal, displayModal, sendForm } from '../utils/contactForm.js';
 import { handleClickLightbox } from '../utils/lightbox.js';
 
 export function makePhotograferHeader(data) {
@@ -34,8 +34,6 @@ export function makePhotograferHeader(data) {
   img.setAttribute('tabindex', '5');
   header.appendChild(img);
   //
-
-  console.log(price);
 }
 
 export function makePhotograferContact(data) {
@@ -51,10 +49,13 @@ export function makePhotograferContact(data) {
   const header = document.createElement('header');
   const h2 = document.createElement('h2');
   h2.textContent = 'Contactez-moi ' + name;
+  h2.setAttribute('tabindex', '4');
   const img = document.createElement('img');
   img.setAttribute('src', 'assets/icons/close.svg');
   img.setAttribute('alt', 'Fermer');
+  img.setAttribute('tabindex', '4');
   img.addEventListener('click', () => closeModal());
+  img.addEventListener('keypress', (e) => closeModal(e));
   header.append(h2, img);
   divClass.append(header);
   //
@@ -64,24 +65,40 @@ export function makePhotograferContact(data) {
   const label = document.createElement('label');
   label.textContent = 'Prénom';
   const input = document.createElement('input');
+  input.setAttribute('type', 'text');
+  input.setAttribute('aria-label', 'Prénom');
+  input.setAttribute('tabindex', '4');
+  input.setAttribute('id', 'first_name');
   divFirstName.append(label, input);
   // create div with label and input
   const divLastName = document.createElement('div');
   const label2 = document.createElement('label');
   label2.textContent = 'Nom';
   const input2 = document.createElement('input');
+  input2.setAttribute('type', 'text');
+  input2.setAttribute('aria-label', 'Nom');
+  input2.setAttribute('tabindex', '4');
+  input2.setAttribute('id', 'last_name');
   divLastName.append(label2, input2);
   // create div with label and input
   const divEmail = document.createElement('div');
   const label3 = document.createElement('label');
   label3.textContent = 'Email';
   const input3 = document.createElement('input');
+  input3.setAttribute('type', 'email');
+  input3.setAttribute('aria-label', 'Email');
+  input3.setAttribute('tabindex', '4');
+  input3.setAttribute('id', 'email');
   divEmail.append(label3, input3);
   // create div with label and input
   const divMessage = document.createElement('div');
   const label4 = document.createElement('label');
   label4.textContent = 'Votre message';
   const input4 = document.createElement('input');
+  input4.setAttribute('type', 'text');
+  input4.setAttribute('aria-label', 'Votre message');
+  input4.setAttribute('tabindex', '4');
+  input4.setAttribute('id', 'message');
   divMessage.append(label4, input4);
   form.append(divFirstName, divLastName, divEmail, divMessage);
   divClass.append(form);
@@ -89,7 +106,11 @@ export function makePhotograferContact(data) {
   const button = document.createElement('button');
   button.classList.add('contact_button');
   button.textContent = 'Envoyer';
+  button.setAttribute('tabindex', '4');
+  button.addEventListener('click', (e) => sendForm(e));
+
   form.append(button);
+  divClass.focus();
 }
 
 export function makePhotograferMedia(data) {
@@ -226,7 +247,6 @@ export function makeMediaDiv(data) {
   }
   if (video) {
     const videoDisplay = document.createElement('video');
-    console.log(video);
     videoDisplay.setAttribute('src', `assets/media/${video}`);
     videoDisplay.setAttribute('controls', 'controls');
     videoDisplay.setAttribute('tabindex', '9');
@@ -258,6 +278,7 @@ export function makeMediaDiv(data) {
   likeIcon.setAttribute('tabindex', '9');
   likeIcon.setAttribute('aria-label', 'Appuyer sur entrée pour aimer');
   divLikes.appendChild(likeIcon);
+  incrementLike(data);
 }
 
 export function makeNumberOfLikes(data) {
@@ -409,8 +430,6 @@ export function incrementLike(data) {
 
   likeIcon.addEventListener('click', () => {
     if (asClicked === false) {
-      console.log(likes);
-
       const newLikes = Number(likes) + 1;
       media.likes = newLikes;
       const pLikes = document.querySelector(`.likes.b${id} p`);
@@ -435,8 +454,6 @@ export function incrementLike(data) {
   likeIcon.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       if (asClicked === false) {
-        console.log(likes);
-
         const newLikes = Number(likes) + 1;
         media.likes = newLikes;
         const pLikes = document.querySelector(`.likes.b${id} p`);

@@ -11,7 +11,7 @@ import {
   makePhotograferHeader,
   makePhotograferMedia,
   makePhotograpgerPrice,
-} from '../factories/makePhotograferPage.js';
+} from '../Elements/makePhotograferPage.js';
 import { handleClickLightbox } from '../utils/lightbox.js';
 // Call function to get photographer data by id and call function to makeHeader
 async function init() {
@@ -26,13 +26,10 @@ async function init() {
   handleClickSort(photographerMedia);
   photographerMedia.forEach((media) => {
     makeMediaDiv(media);
+    incrementLike(media);
   });
 
   handleClickLightbox(photographerMedia);
-
-  photographerMedia.forEach((media) => {
-    incrementLike(media);
-  });
 }
 
 init();

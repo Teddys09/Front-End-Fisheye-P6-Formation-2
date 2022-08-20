@@ -226,7 +226,7 @@ form input {
   background-position: center center;
   background-size: cover;
   border-radius: 5px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .lightbox video {
   width: 80%;

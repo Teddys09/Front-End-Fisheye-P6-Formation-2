@@ -42,9 +42,7 @@ function makeLightbox(data) {
   if (document.querySelector('.lightbox')) {
     document.querySelector('.lightbox').remove();
   }
-  console.log(data);
   const lightBoxContainer = document.querySelector('.lightbox-container');
-  console.log(data);
   const { id, image, title, video } = data;
   const lightbox = document.createElement('div');
   lightbox.classList.add('lightbox', `b${id}`);
@@ -92,42 +90,26 @@ function handleChevron(data, actualData) {
   const chevronLeft = document.querySelector('.chevron-left');
   const lightBoxContainer = document.querySelector('.lightbox-container');
 
-  console.log(actualData);
-  console.log(data);
   //const lightbox = document.querySelector('.lightbox .b' + id);
 
-  chevronRight.addEventListener('click', () => {
+  function handleChevronRight() {
     let indexs = data.indexOf(actualData);
     if (indexs === data.length - 1) {
       actualData = data[0];
     } else {
       actualData = data[indexs + 1];
     }
-
-    console.log(actualData);
-    // find in data === actualData and log it
     const nextData = data.findIndex((item) => item.id === actualData.id);
-
-    console.log(nextData);
     makeLightbox(data[nextData]);
     lightBoxContainer.focus();
+  }
+
+  chevronRight.addEventListener('click', () => {
+    handleChevronRight();
   });
   chevronRight.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-      let indexs = data.indexOf(actualData);
-      if (indexs === data.length - 1) {
-        actualData = data[0];
-      } else {
-        actualData = data[indexs + 1];
-      }
-
-      console.log(actualData);
-      // find in data === actualData and log it
-      const nextData = data.findIndex((item) => item.id === actualData.id);
-
-      console.log(nextData);
-      makeLightbox(data[nextData]);
-      lightBoxContainer.focus();
+      handleChevronRight();
     }
   });
 
@@ -139,11 +121,8 @@ function handleChevron(data, actualData) {
       actualData = data[indexs - 1];
     }
 
-    console.log(actualData);
-    // find in data === actualData and log it
     const nextData = data.findIndex((item) => item.id === actualData.id);
 
-    console.log(nextData);
     makeLightbox(data[nextData]);
     lightBoxContainer.focus();
   });
@@ -156,11 +135,8 @@ function handleChevron(data, actualData) {
         actualData = data[indexs - 1];
       }
 
-      console.log(actualData);
-      // find in data === actualData and log it
       const nextData = data.findIndex((item) => item.id === actualData.id);
 
-      console.log(nextData);
       makeLightbox(data[nextData]);
       lightBoxContainer.focus();
     }
@@ -168,11 +144,10 @@ function handleChevron(data, actualData) {
 }
 
 // make function to on click on id bid display the light box
+// data = image de photographe
 export function handleClickLightbox(data) {
-  console.log(data);
   for (let i = 0; i < data.length; i++) {
     const id = data[i].id;
-    console.log(id);
     const mediaImg = document.querySelector('.media-card .b' + id);
     mediaImg.addEventListener('click', () => {
       makeLightboxContainer(data, data[i]);

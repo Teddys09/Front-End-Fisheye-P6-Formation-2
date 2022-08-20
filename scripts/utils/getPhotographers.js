@@ -30,7 +30,6 @@ export async function getPhotographerById() {
   const photographer = photographers.find((photographer) => {
     return photographer.id == id;
   });
-  console.log(photographer);
 
   return { photographer };
 }
