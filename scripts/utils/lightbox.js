@@ -60,6 +60,7 @@ function makeLightbox(data) {
     const lightboxVideo = document.createElement('video');
     lightboxVideo.setAttribute('src', `assets/media/${video}`);
     lightboxVideo.setAttribute('alt', `${title}`);
+    lightboxVideo.setAttribute('controls', 'controls');
     lightboxVideo.classList.add('lightbox-video');
     lightbox.appendChild(lightboxVideo);
   }
