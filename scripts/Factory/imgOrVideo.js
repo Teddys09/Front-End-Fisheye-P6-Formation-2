@@ -12,7 +12,8 @@ export function makeImgOrVideo(data) {
   if (image) {
     divMediaImg.style.backgroundImage = `url(assets/media/${image})`;
     divMediaImg.setAttribute('tabindex', '9');
-    divMediaImg.setAttribute('aria-label', `photo ${title}`);
+
+    divMediaImg.setAttribute('alt', `${title}`);
   }
   if (video) {
     const videoDisplay = document.createElement('video');

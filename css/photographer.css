@@ -94,7 +94,7 @@ form input {
   height: 10px;
   width: 16px;
   right: 10px;
-  top: 10px;
+  top: 0px;
   cursor: pointer;
   position: absolute;
 }
@@ -134,7 +134,7 @@ form input {
   width: 92%;
   position: relative;
   background: white;
-  right: -6px;
+
   display: none;
 }
 .choice li {

@@ -143,35 +143,35 @@ function makeSortBy(data) {
   liPopular.classList.add('popular');
   liPopular.setAttribute('tabindex', '9 ');
   ul.appendChild(liPopular);
-  // create div border
-  const divBorder = document.createElement('div');
-  divBorder.classList.add('border');
-  ul.appendChild(divBorder);
+  // create li border
+  const liBorder = document.createElement('li');
+  liBorder.classList.add('border');
+  ul.appendChild(liBorder);
   const liDate = document.createElement('li');
   liDate.textContent = 'Date';
   liDate.classList.add('date');
   liDate.setAttribute('tabindex', '9');
   ul.appendChild(liDate);
-  const divBorder2 = document.createElement('div');
-  divBorder2.classList.add('border');
-  ul.appendChild(divBorder2);
+  const liBorder2 = document.createElement('li');
+  liBorder2.classList.add('border');
+  ul.appendChild(liBorder2);
   const liTitle = document.createElement('li');
   liTitle.textContent = 'Titre';
   liTitle.classList.add('title');
   liTitle.setAttribute('tabindex', '9');
   ul.appendChild(liTitle);
   // add icon to ul
-  const divIcon = document.createElement('div');
-  divIcon.classList.add('icon-dropdown');
-  divIcon.setAttribute('tabindex', '8');
-  ul.appendChild(divIcon);
+  const liIcon = document.createElement('li');
+  liIcon.classList.add('icon-dropdown');
+  liIcon.setAttribute('tabindex', '8');
+  ul.appendChild(liIcon);
   const iconDropDown = document.createElement('img');
   iconDropDown.setAttribute('src', 'assets/icons/angle-down-solid.svg');
   iconDropDown.setAttribute(
     'alt',
     'Flèche vers le bas appuyer sur entrée pour afficher les choix'
   );
-  divIcon.appendChild(iconDropDown);
+  liIcon.appendChild(iconDropDown);
   const divMedia = document.createElement('div');
   divMedia.classList.add('media');
   mediaContainer.appendChild(divMedia);
