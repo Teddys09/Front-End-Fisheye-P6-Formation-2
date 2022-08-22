@@ -18,8 +18,8 @@ async function init() {
   const { photographer } = await getPhotographerById();
   const { photographerMedia } = await getPhotographerMedia();
 
-  makePhotograferContact(photographer);
   makePhotograferHeader(photographer);
+  makePhotograferContact(photographer);
   makeNumberOfLikes(photographerMedia);
   makePhotograpgerPrice(photographer);
   makePhotograferMedia(photographerMedia);

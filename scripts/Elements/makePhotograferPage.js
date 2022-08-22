@@ -28,6 +28,7 @@ export function makePhotograferHeader(data) {
   buttonContact.setAttribute('tabindex', '4');
   header.appendChild(buttonContact);
   buttonContact.addEventListener('click', () => displayModal());
+
   //
   const img = document.createElement('img');
   img.setAttribute('src', `assets/photographers/${portrait}`);
@@ -40,6 +41,7 @@ export function makePhotograferHeader(data) {
 export function makePhotograferContact(data) {
   const { name } = data;
   const body = document.querySelector('body');
+
   //
   const divId = document.createElement('div');
   divId.id = 'contact_modal';
@@ -57,6 +59,11 @@ export function makePhotograferContact(data) {
   img.setAttribute('tabindex', '4');
   img.addEventListener('click', () => closeModal());
   img.addEventListener('keypress', (e) => closeModal(e));
+  divId.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
   header.append(h2, img);
   divClass.append(header);
   //
@@ -108,10 +115,16 @@ export function makePhotograferContact(data) {
   button.classList.add('contact_button');
   button.textContent = 'Envoyer';
   button.setAttribute('tabindex', '4');
+  button.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+
+      document.getElementById('first_name').focus();
+    }
+  });
   button.addEventListener('click', (e) => sendForm(e));
 
   form.append(button);
-  divClass.focus();
 }
 
 export function makePhotograferMedia(data) {

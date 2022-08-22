@@ -36,6 +36,17 @@ function makeLightboxContainer(data, actualData) {
   handleCloseLightbox();
 
   handleChevron(data, actualData);
+  lightBoxContainer.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const prev = document.querySelector('.chevron-left');
+      prev.click();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const next = document.querySelector('.chevron-right');
+      next.click();
+    }
+  });
 }
 
 function makeLightbox(data) {
@@ -73,7 +84,7 @@ function makeLightbox(data) {
 }
 function handleCloseLightbox() {
   const lightBoxContainer = document.querySelector('.lightbox-container');
-  const lightBox = document.querySelector('.lightbox');
+
   const closeIcon = document.querySelector('.close-icon');
 
   closeIcon.addEventListener('click', () => {
@@ -90,8 +101,6 @@ function handleChevron(data, actualData) {
   const chevronRight = document.querySelector('.chevron-right');
   const chevronLeft = document.querySelector('.chevron-left');
   const lightBoxContainer = document.querySelector('.lightbox-container');
-
-  //const lightbox = document.querySelector('.lightbox .b' + id);
 
   function handleChevronRight() {
     let indexs = data.indexOf(actualData);

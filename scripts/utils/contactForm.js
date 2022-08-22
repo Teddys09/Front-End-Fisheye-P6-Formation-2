@@ -1,40 +1,31 @@
 export function displayModal() {
   const modal = document.getElementById('contact_modal');
+  const headerForm = document.querySelector('.modal header h2');
+
   const main = document.querySelector('#main');
   const header = document.querySelector('header');
   const likesAndPrice = document.querySelector('.likes-and-price');
-  const form = document.querySelector('.modal');
 
   modal.style.display = 'block';
-  form.focus();
   main.style.opacity = '0.5';
   header.style.opacity = '0.5';
   likesAndPrice.style.opacity = '0.5';
+  headerForm.focus();
 }
 
-export function closeModal(e) {
-  // if key press = enter
-  if (e) {
-    if (e.key === 'Enter') {
-      const modal = document.getElementById('contact_modal');
-      const main = document.querySelector('#main');
-      const header = document.querySelector('header');
-      const likesAndPrice = document.querySelector('.likes-and-price');
-      modal.style.display = 'none';
-      main.style.opacity = '1';
-      header.style.opacity = '1';
-      likesAndPrice.style.opacity = '1';
-    }
-  } else {
-    const modal = document.getElementById('contact_modal');
-    const main = document.querySelector('#main');
-    const header = document.querySelector('header');
-    const likesAndPrice = document.querySelector('.likes-and-price');
-    modal.style.display = 'none';
-    main.style.opacity = '1';
-    header.style.opacity = '1';
-    likesAndPrice.style.opacity = '1';
-  }
+export function closeModal() {
+  console.log('hi');
+  const button = document.querySelector('.contact_button');
+
+  const modal = document.getElementById('contact_modal');
+  const main = document.querySelector('#main');
+  const header = document.querySelector('header');
+  const likesAndPrice = document.querySelector('.likes-and-price');
+  modal.style.display = 'none';
+  main.style.opacity = '1';
+  header.style.opacity = '1';
+  likesAndPrice.style.opacity = '1';
+  button.focus();
 }
 
 export function sendForm(e) {
